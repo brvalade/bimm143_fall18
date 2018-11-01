@@ -1,2 +1,2 @@
 # bimm143_fall18
-Class repo
+Class Repository for BIMM 143 Fall 18
