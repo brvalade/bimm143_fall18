@@ -1,0 +1,122 @@
+---
+title: "Structural Nioinformatics Class 11"
+author: "Brian Valadez"
+date: "November 6, 2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Pdb stats and how many total samples there are
+```{r}
+pdbstats <- read.csv("Data Export Summary.csv",row.names = 1)
+sum(pdbstats[,5])
+```
+Lets look at the table
+```{r}
+library(knitr)
+kable(pdbstats)
+```
+
+Q1. Determine the percentage of structures solved by X-Ray and Electron Microscopy. From
+the website what proportion of stru
+asfctures are protein?
+
+```{r}
+Percent.xray <- round((pdbstats[1,5]/sum(pdbstats[,5]))*100,2)
+Percent.EM <-round((pdbstats[3,5]/sum(pdbstats[,5]))*100,2)
+Percent.Protein <- round((sum(pdbstats[,1])/sum(pdbstats[,5]))*100,2)
+```
+```{r}
+nstru <- sum(pdbstats[,5]) 
+  percent <- round(pdbstats$Total/nstru*100,2)
+```
+```{r}
+nstats <- pdbstats
+nstats$percent <- percent
+kable(nstats)
+```
+
+A1. There are 89.49% X-Ray and 1.72% Electron Microscopy
+
+The proportion of protein entries
+```{r}
+round(sum(nstats$Proteins/nstru)*100,2)
+```
+
+
+
+```{r}
+library(bio3d)
+pdb <- read.pdb("1hsg")
+pdb
+```
+
+```{r}
+attributes(pdb)
+```
+```{r}
+
+```
+```{r}
+
+```
+
+```{r}
+ca.inds <- atom.select(pdb, "calpha")
+ca.inds
+```
+
+```{r}
+head(pdb$atom)
+```
+```{r}
+ligand.inds <- atom.select(pdb,"ligand")
+ligand.inds
+```
+
+```{r}
+pdb$atom[ligand.inds$atom,]
+```
+
+```{r}
+lingand.pdb <- atom.select(pdb, "ligand", value=T)
+write.pdb(ligand.pdb, file="MK1.pdb")
+```
+```{r}
+ids <- c("1TND_B","1AGR_A","1TAG_A","1GG2_A","1KJY_A","4G5Q_A")
+files <- get.pdb(ids, split = TRUE)
+```
+```{r}
+pdbs <- pdbaln(files, fit = TRUE)
+```
+
+```{r}
+pdbs
+```
+```{r}
+core <- core.find(pdbs)
+pdbs$xyz = pdbfit(pdbs, core)
+pc.xray <- pca(pdbs)
+rd <- rmsd(pdbs)
+hc.rd <- hclust(dist(rd))
+grps.rd <- cutree(hc.rd, k=3)
+plot(pc.xray, 1:2, col="grey50", bg=grps.rd, pch=21, cex=1)
+```
+```{r}
+plot(pc.xray)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

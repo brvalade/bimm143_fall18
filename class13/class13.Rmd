@@ -1,0 +1,40 @@
+---
+title: "Bimm 143 Class 13"
+author: "Brian Valadez"
+date: "November 13, 2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Get HIV-Pr structure from PDB database
+ We are working with 1HSG
+```{r}
+library(bio3d)
+HSG.pdb <- get.pdb("1hsg")
+```
+Read this in to R and examine composition 
+```{r}
+hiv <- read.pdb("1hsg")
+hiv
+```
+Split in to protein and ligand
+```{r}
+protein <-trim.pdb(hiv, "protein") 
+ligand <- trim.pdb(hiv, "ligand")
+```
+```{r}
+protein
+```
+```{r}
+write.pdb(protein, file="1hsg_protein.pdb")
+```
+```{r}
+ligand
+```
+
+```{r}
+write.pdb(ligand,"1hsg_lligand.pdb")
+```
+

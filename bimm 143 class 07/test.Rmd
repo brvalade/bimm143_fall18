@@ -1,0 +1,36 @@
+---
+title: "test"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: scroll
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+row
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+plot(1:3)
+```
+
+row
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+plot(1:10, typ="l", col="red")
+```
+
+### Chart C
+
+```{r}
+plot(1:635)
+```
+
