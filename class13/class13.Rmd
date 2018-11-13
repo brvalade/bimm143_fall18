@@ -40,12 +40,32 @@ write.pdb(ligand,"1hsg_lligand.pdb")
 ## Docking with vina
 We run this comand 
 "\Program Files (x86)\The Scripps Research Institute\Vina\vina.exe" --config config.
-txt --log log.txt
-
+txt --log log
 ## Read docking results
 we got a file all.pdbqt that we need to making into a PDB format
 ```{r}
 res <- read.pdb("all.pdbqt", multi=T)
 write.pdb(res, "results.pdb")
+```
+```{r}
+res
+
+```
+Checking to see which is best ( should be the first one)
+```{r}
+ori <- read.pdb("1hsg_lligand.pdbqt")
+rmsd(ori,res)
+```
+## Section 3.1
+```{r}
+HELpdb <- read.pdb("1HEL")
+modes <- nma(HELpdb)
+plot(modes, sse=HELpdb)
+```
+
+
+
+```{r}
+mktrj(modes, mode=7, file="nma_7.pdb")
 ```
 
