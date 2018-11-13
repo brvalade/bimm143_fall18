@@ -37,4 +37,15 @@ ligand
 ```{r}
 write.pdb(ligand,"1hsg_lligand.pdb")
 ```
+## Docking with vina
+We run this comand 
+"\Program Files (x86)\The Scripps Research Institute\Vina\vina.exe" --config config.
+txt --log log.txt
+
+## Read docking results
+we got a file all.pdbqt that we need to making into a PDB format
+```{r}
+res <- read.pdb("all.pdbqt", multi=T)
+write.pdb(res, "results.pdb")
+```
 
